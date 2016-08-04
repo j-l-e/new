@@ -1,6 +1,45 @@
 import tkinter #подключаем графический модуль
+from random import choice, randint #подключаем модуль генератора случайных чисел (choice - выбор случ. значения из списка, randint - случ.целое число)
 root=tkinter.Tk #создаем главное окно проекта
 canvas=tkinter.Canvas(root)# в главном окне root создаем объект - холст, на котором будут шарики
+
+ball_initional_number=20 #максимальное количество шариков
+ball_max_radius=40 #максимальный радиус шарика
+ball_mix_radius=10 #минимальный радиус
+
+
+
+
+def click_ball(event):
+    """обработчик событий мышки для игрового холста
+    event: событие с координатами клика
+    По клику ЛКМ нужно удалять тот объект, на который мышь указывает
+    А также считать очки пользователя"""
+
+def random_color():
+    """
+    Функция для случайного выбора цвета"""
+    return choice (['green','red','#0000FF'])
+
+def create_random_ball():
+    """
+    Функция создает 1 шарик в случайном месте игрового холста, для цвета заливки используется функция random_color()
+    :return:
+    """
+    r=randint(ball_min_radius,ball_max_radius)
+    x=randint(r,int(canvas[width])-r)# canvas[width] - определение ширины игрового поля, и переводим в целое число
+    y=randint(r,int(canvas[heigth])-r)
+    canvas.create_oval(x,y,x+2*r,y+2*r,width=1, fill=random_color())# овал вписывается в прямоугольник с координатами x,y,x+2*r,y+2*r
+
+def init_ball_catch_game():
+    """ Создаем необходимое для игры количество шариков, по которым нужно будет кликать
+    :return:
+    """
+    for i in range (ball_initional_number):# ball_initional_number переменная указывает количество шаров на поле
+        create_random_ball()# Вызываем функцию создания рандомных шаров
+
+
 canvas.bind ("<Button-1>", click_ball)# привязываем объект-холст к событию Motion-1 (клик ЛКМ) и функции, которая будет работать по клику
 canvas.pack()#привязываем (упаковываем) объект к месту в главном окне
+
 root.mainloop() #запускаем главный цикл ожидания событий ?
