@@ -1,12 +1,10 @@
 import tkinter #подключаем графический модуль
 from random import choice, randint #подключаем модуль генератора случайных чисел (choice - выбор случ. значения из списка, randint - случ.целое число)
 
-
 ball_initional_number=20 #максимальное количество шариков
 ball_max_radius=40 #максимальный радиус шарика
 ball_min_radius=10 #минимальный радиус
 ochki=0
-
 
 def click_ball(event):
     """обработчик событий мышки для игрового холста
@@ -20,7 +18,7 @@ def click_ball(event):
         canvas.delete(obj)#удаляем объект
         create_random_ball()
         ochki+=1
-        text["text"]=str(ochki)
+        print (ochki)
 
 def random_color():
     """
@@ -30,7 +28,6 @@ def random_color():
 def create_random_ball():
     """
     Функция создает 1 шарик в случайном месте игрового холста, для цвета заливки используется функция random_color()
-    :return:
     """
     r=randint(ball_min_radius,ball_max_radius)
     x=randint(r,int(canvas['width'])-2*r) # canvas[width] - определение ширины игрового поля, и переводим в целое число
@@ -48,10 +45,8 @@ def move_all_balls(event):
         dy=randint(-1,1)
         canvas.move(obj,dx,dy)
 
-
 def init_ball_catch_game():
     """ Создаем необходимое для игры количество шариков, по которым нужно будет кликать
-    :return:
     """
     for i in range (ball_initional_number):# ball_initional_number переменная указывает количество шаров на поле
         create_random_ball() # Вызываем функцию создания рандомных шаров
@@ -64,11 +59,10 @@ def init_main_window():# главная функция проекта
     canvas.bind("<Motion>",move_all_balls)#привязываем объект-холст к событию Motion (движение мышкой)и функции, двигающей шарики
     canvas.pack()#привязываем (упаковываем) объект к месту в главном окне
 
-    label=tkinter.Label(root,text='Количество очков')
+    label=tkinter.Label(root,text='Количество очков')#Метка для отображения текста
     label.pack()
-    text=tkinter.Entry(root,width=50)
+    text=tkinter.Entry(root,width=50,textvariable=ochki)#Текстовое поле для отображения очков (пока не работает)
     text.pack()
-
 
 if __name__=="__main__":# инициализация главной функции проекта
     init_main_window()
