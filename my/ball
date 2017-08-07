@@ -19,6 +19,7 @@ def click_ball(event):
         create_random_ball()
         ochki+=1
         print (ochki)
+        text["text"]=str(ochki)
 
 def random_color():
     """
